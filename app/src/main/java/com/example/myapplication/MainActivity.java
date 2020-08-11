@@ -12,25 +12,37 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button btnLogin;
+    EditText txtUsername, txtPw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        btnLogin = (Button)findViewById(R.id.BtnLogin);
+        txtUsername = (EditText)findViewById(R.id.txtUsername);
+        txtPw = (EditText)findViewById(R.id.txtPassword);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (txtUsername.getText().toString().equalsIgnoreCase("admin") && txtPw.getText().toString().equalsIgnoreCase("pw003360")){
+                    Toast.makeText(getApplicationContext(), "Thank you for LOGIN!", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Username/Password is Invalid", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
-    }
+    };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

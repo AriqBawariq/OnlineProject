@@ -10,23 +10,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textSize="64px"
+        android:text="Masukkan Username/Email"
+        android:textSize="8pt"
         ></TextView>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtUsername"
-        android:textSize="64px"
+        android:textSize="8pt"
         android:hint="Enter Username/Email"
         ></EditText>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password"
-        android:textSize="64px"
+        android:text="Masukkan Password"
+        android:textSize="8pt"
         ></TextView>
 
     <EditText
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtPassword"
-        android:textSize="64px"
+        android:textSize="8pt"
         android:hint="Enter Password"
         ></EditText>
 
