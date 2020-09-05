@@ -121,6 +121,12 @@
         android:layout_height="wrap_content"
         android:text="Register"
         ></Button>
+    <Button
+        android:id="@+id/BtnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back To Login"
+        ></Button>
 
 
 </LinearLayout>
