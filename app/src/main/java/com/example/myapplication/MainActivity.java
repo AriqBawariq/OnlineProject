@@ -1,13 +1,22 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.renderscript.RenderScript;
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -16,10 +25,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
-    Button btnLogin;
+    Button btnLogin, btnRegister;
     EditText txtUsername, txtPw;
+    SharedPreferences sp;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +46,65 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {                if (txtUsername.getText().toString().equalsIgnoreCase("admin") && txtPw.getText().toString().equalsIgnoreCase("pw003360")){
-                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getApplicationContext(),"Username/Password is Invalid", Toast.LENGTH_LONG).show();
-                }
+            public void onClick(View view) {
+                String username = txtUsername.getText().toString();
+                String password = txtPw.getText().toString().trim();
+                progressDialog.setTitle("Logging In...");
+                progressDialog.show();
+                AndroidNetworking.post(BaseUrl.url + "login.php")
+                        .addBodyParameter("username", username)
+                        .addBodyParameter("password", password)
+                        .setPriority(Priority.LOW)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("hasil", "onResponse: ");
+                                try {
+                                    JSONObject PAYLOAD = response.getJSONObject("PAYLOAD");
+                                    boolean sukses = PAYLOAD.getBoolean("respon");
+                                    String roleuser = PAYLOAD.getString("roleuser");
+                                    Log.d("PAYLOAD", "onResponse: " + PAYLOAD);
+                                    if (sukses && roleuser.equals("admin")) {
+                                        sp.edit().putBoolean("logged",true).apply();
+                                        Intent intent = new Intent(MainActivity.this, Admin.class);
+                                        startActivity(intent);
+                                        finish();
+                                        progressDialog.dismiss();
+                                    } else if (sukses && roleuser.equals("customer")){
+                                        sp.edit().putBoolean("logged",true).apply();
+                                        Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                                        startActivity(intent);
+                                        finish();
+                                        progressDialog.dismiss();
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "gagal", Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(ANError anError) {
+                                progressDialog.dismiss();
+                            }
+                        });
+
 
             }
         });
-    };
 
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Register.class);
+                startActivity(intent);
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
