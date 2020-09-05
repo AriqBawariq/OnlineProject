@@ -32,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (txtUsername.getText().toString().equalsIgnoreCase("admin") && txtPw.getText().toString().equalsIgnoreCase("pw003360")){
-                    Toast.makeText(getApplicationContext(), "Thank you for LOGIN!", Toast.LENGTH_LONG).show();
+            public void onClick(View view) {                if (txtUsername.getText().toString().equalsIgnoreCase("admin") && txtPw.getText().toString().equalsIgnoreCase("pw003360")){
+                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getApplicationContext(),"Username/Password is Invalid", Toast.LENGTH_LONG).show();
                 }

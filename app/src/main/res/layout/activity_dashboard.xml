@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Dashboard"
             android:textSize="14pt"
             android:gravity="center"
 
@@ -26,59 +26,41 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_marginTop="30dp"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_gravity="center"
-        android:foreground="@mipmap/ic_launcher"
-        android:layout_marginBottom="30dp"
-        >
+        android:layout_marginTop="50dp"
+        tools:srcCompat="@tools:sample/avatars">
 
     </ImageView>
 
-//Username
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Masukkan Username/Email"
+        android:text="Selamat Datang User"
         android:textSize="8pt"
-        ></TextView>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtUsername"
-        android:textSize="8pt"
-        android:hint="Enter Username/Email"
-        ></EditText>
-//Password
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Masukkan Password"
-        android:textSize="8pt"
-        ></TextView>
-    <EditText
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtPassword"
-        android:textSize="8pt"
-        android:hint="Enter Password"
-        ></EditText>
-//Login
-    <Button
-        android:id="@+id/BtnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        ></Button>
-//Sign Up
-    <Button
-        android:id="@+id/BtnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        ></Button>
+        android:textAlignment="center"
+        android:layout_gravity="center"
+></TextView>
 
+    <Button
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profil"
+        android:id="@+id/BtnProfile"
+        >
+
+    </Button>
+
+    <Button
+        android:id="@+id/BtnSepeda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data Sepeda"
+
+        >
+
+    </Button>
 
 </LinearLayout>
