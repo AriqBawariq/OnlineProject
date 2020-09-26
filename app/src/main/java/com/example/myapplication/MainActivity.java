@@ -1,130 +1,138 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.renderscript.RenderScript;
-import android.util.Log;
-import android.view.View;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btnLogin, btnRegister;
-    EditText txtUsername, txtPw;
-    SharedPreferences sp;
+    EditText username;
+    EditText password;
+    String roleuser;
     ProgressDialog progressDialog;
+    SharedPreferences sp;
+    private String sroleuser, sgmail, susername, sid, snoktp, snotlp, salamat;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnLogin = (Button)findViewById(R.id.BtnLogin);
-        txtUsername = (EditText)findViewById(R.id.txtUsername);
-        txtPw = (EditText)findViewById(R.id.txtPassword);
+        progressDialog = new ProgressDialog(this);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = txtUsername.getText().toString();
-                String password = txtPw.getText().toString().trim();
-                progressDialog.setTitle("Logging In...");
-                progressDialog.show();
-                AndroidNetworking.post(BaseUrl.url + "login.php")
-                        .addBodyParameter("username", username)
-                        .addBodyParameter("password", password)
-                        .setPriority(Priority.LOW)
-                        .build()
-                        .getAsJSONObject(new JSONObjectRequestListener() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d("hasil", "onResponse: ");
-                                try {
-                                    JSONObject PAYLOAD = response.getJSONObject("PAYLOAD");
-                                    boolean sukses = PAYLOAD.getBoolean("respon");
-                                    String roleuser = PAYLOAD.getString("roleuser");
-                                    Log.d("PAYLOAD", "onResponse: " + PAYLOAD);
-                                    if (sukses && roleuser.equals("admin")) {
-                                        sp.edit().putBoolean("logged",true).apply();
-                                        Intent intent = new Intent(MainActivity.this, Admin.class);
-                                        startActivity(intent);
-                                        finish();
-                                        progressDialog.dismiss();
-                                    } else if (sukses && roleuser.equals("customer")){
-                                        sp.edit().putBoolean("logged",true).apply();
-                                        Intent intent = new Intent(MainActivity.this, Dashboard.class);
-                                        startActivity(intent);
-                                        finish();
-                                        progressDialog.dismiss();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "gagal", Toast.LENGTH_SHORT).show();
-                                        progressDialog.dismiss();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onError(ANError anError) {
-                                progressDialog.dismiss();
-                            }
-                        });
-
-
-            }
-        });
+        btnLogin = (Button) findViewById(R.id.BtnLogin);
+        username = findViewById(R.id.txtUsername);
+        password = findViewById(R.id.txtPassword);
+        btnRegister = (Button) findViewById(R.id.BtnRegister);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Register.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, Register.class));
+                finish();
             }
         });
 
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.setTitle("Logging In...");
+                progressDialog.show();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("email", username.getText().toString());
+                body.put("password", password.getText().toString());
+                AndroidNetworking.post("http://192.168.42.40/Sepeda/login.php")
+                        .addBodyParameter(body)
+                        .setPriority(Priority.MEDIUM)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d("RBA", "respon : " + response);
+                                String message = response.optString("message");
+                                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+//                                    String login = response.optString("login");
+                                if (message.equalsIgnoreCase("success")) {
+                                    JSONArray loginArray = response.optJSONArray("login");
+                                    if (loginArray == null) return;
+                                    for (int i = 0; i <loginArray.length(); i++) {
+                                        JSONObject aLogin = loginArray.optJSONObject(i);
+                                        sroleuser = aLogin.optString("roleuser");
+                                        sgmail = aLogin.optString("email");
+                                        susername = aLogin.optString("nama");
+                                        sid = aLogin.optString("id");
+                                        snoktp = aLogin.optString("noktp");
+                                        snotlp = aLogin.optString("notlp");
+                                        salamat = aLogin.optString("alamat");
+                                    }
+                                    Log.d("AGG", "respon : " + sroleuser);
+                                    sp = getSharedPreferences("RENTALSEPEDA", Context.MODE_PRIVATE);
+                                    sp.edit()
+                                            .putString("USERID", sid)
+                                            .putString("USERNAME", susername)
+                                            .putString("ROLEUSER", sroleuser)
+                                            .putString("EMAIL", sgmail)
+                                            .putString("KTP", snoktp)
+                                            .putString("PHONE", snotlp)
+                                            .putString("ALAMAT", salamat)
+                                            .apply();
+                                    if (sroleuser.equalsIgnoreCase("2")) {
+                                        Intent intent = new Intent(MainActivity.this, Admin.class);
+                                        startActivity(intent);
+                                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        finishAffinity();
+                                    }else {
+                                        Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                                        startActivity(intent);
+                                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        finishAffinity();
+                                    }
+                                }
+                                else {
+                                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(ANError anError) {
+                                Toast.makeText(MainActivity.this, "Usernmae/Password salah", Toast.LENGTH_SHORT).show();
+                                Log.d("e", "onError: " + anError.getErrorBody());
+                                Log.d("e", "onError: " + anError.getLocalizedMessage());
+                                Log.d("e", "onError: " + anError.getErrorDetail());
+                                Log.d("e", "onError: " + anError.getResponse());
+                                Log.d("e", "onError: " + anError.getErrorCode());
+                                progressDialog.cancel();
+                            }
+                        });
+
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-}
+    ;}

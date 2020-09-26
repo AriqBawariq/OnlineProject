@@ -7,30 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#4CAF50">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dashboard"
-            android:textSize="14pt"
-            android:gravity="center"
-
-            >
-
-        </TextView>
-
-    </RelativeLayout>
+    <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:title="Profile"
+    app:titleTextColor="#FFFFFF"
+    android:background="#4CAF50"/>
 
     <ImageView
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        tools:srcCompat="@tools:sample/avatars">
+        android:background="#FFFFFF"
+        tools:src="@tools:sample/avatars">
 
     </ImageView>
 
@@ -58,7 +49,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Data Sepeda"
+        >
 
+    </Button>
+
+    <Button
+        android:id="@+id/BtnLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
         >
 
     </Button>
