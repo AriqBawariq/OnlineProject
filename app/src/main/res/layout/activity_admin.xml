@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Admin">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,7 +13,9 @@
         android:layout_height="wrap_content"
         app:title="Profile"
         app:titleTextColor="#FFFFFF"
-        android:background="#4CAF50"/>
+        android:background="#4CAF50"
+
+        />
 
     <ImageView
         android:layout_width="128dp"
@@ -28,27 +30,55 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Selamat Datang User"
+        android:text="Selamat Datang ADMIN!"
         android:textSize="8pt"
         android:textAlignment="center"
         android:layout_gravity="center"
         ></TextView>
 
-    <Button
+    <TextView
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profil"
-        android:id="@+id/BtnProfile"
+        android:text="Pengaturan Data Sepeda"
+        android:textSize="8pt"
+        >
+
+    </TextView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="List Data Sepeda"
+        android:id="@+id/BtnDataSepeda"
         >
 
     </Button>
 
     <Button
-        android:id="@+id/BtnSepeda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Data Sepeda"
+        android:text="Registrasi Data Sepeda"
+        android:id="@+id/BtnRegisterSepeda"
+        >
+
+    </Button>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pengaturan Data User"
+        android:textSize="8pt"
+        >
+
+    </TextView>
+
+    <Button
+        android:id="@+id/BtnDataUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="List Data user"
         >
 
     </Button>
@@ -57,8 +87,7 @@
         android:id="@+id/BtnLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        >
+        android:text="Logout">
 
     </Button>
 

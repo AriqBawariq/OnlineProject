@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin, btnRegister;
     EditText username;
     EditText password;
-    String roleuser;
     ProgressDialog progressDialog;
     SharedPreferences sp;
     private String sroleuser, sgmail, susername, sid, snoktp, snotlp, salamat;
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 HashMap<String, String> body = new HashMap<>();
                 body.put("email", username.getText().toString());
                 body.put("password", password.getText().toString());
-                AndroidNetworking.post("http://192.168.42.40/Sepeda/login.php")
+                AndroidNetworking.post( BaseUrl.url+ "login.php")
                         .addBodyParameter(body)
                         .setPriority(Priority.MEDIUM)
                         .build()
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(ANError anError) {
-                                Toast.makeText(MainActivity.this, "Usernmae/Password salah", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
                                 Log.d("e", "onError: " + anError.getErrorBody());
                                 Log.d("e", "onError: " + anError.getLocalizedMessage());
                                 Log.d("e", "onError: " + anError.getErrorDetail());

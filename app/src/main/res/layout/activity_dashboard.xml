@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Dashboard">
 
     <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
@@ -28,37 +28,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Selamat Datang User"
+        android:text="Selamat Datang Kembali!"
         android:textSize="8pt"
         android:textAlignment="center"
         android:layout_gravity="center"
 ></TextView>
 
     <Button
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Profil"
-        android:id="@+id/BtnProfile"
-        >
-
-    </Button>
-
-    <Button
-        android:id="@+id/BtnSepeda"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Data Sepeda"
-        >
-
-    </Button>
-
-    <Button
         android:id="@+id/BtnLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        >
+        android:text="Logout">
 
     </Button>
 

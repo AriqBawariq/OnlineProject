@@ -19,56 +19,55 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+public class InfoSepeda extends AppCompatActivity {
 
-public class EditData extends AppCompatActivity {
-
-    TextView tvId;
-    EditText etNama, etEmail, etNohp, etAlamat, etNoktp;
-    Button btnEdit;
+    TextView tvIdSepeda;
+    EditText etKode, etMerk, etJenis, etWarna, etHarga;
+    Button btnEditSepeda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_data);
+        setContentView(R.layout.activity_info_sepeda);
 
-        tvId = findViewById(R.id.tvId);
-        etNama = findViewById(R.id.etNama);
-        etEmail = findViewById(R.id.etEmail);
-        etNohp = findViewById(R.id.etNohp);
-        etAlamat = findViewById(R.id.etAlamat);
-        etNoktp = findViewById(R.id.etNoktp);
-        btnEdit = findViewById(R.id.btnEdit);
+        tvIdSepeda = findViewById(R.id.tvIdSepeda);
+        etKode = findViewById(R.id.etKodeSepeda);
+        etMerk = findViewById(R.id.etMerkSepeda);
+        etJenis = findViewById(R.id.etJenisSepeda);
+        etWarna = findViewById(R.id.etWarna);
+        etHarga = findViewById(R.id.etHargaSewa);
+        btnEditSepeda = findViewById(R.id.btnEditSepeda);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarSepeda);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Edit Customer");
+        getSupportActionBar().setTitle("Edit Data Sepeda");
 
         Bundle extras = getIntent().getExtras();
         final String id = extras.getString("id");
-        final String nama = extras.getString("nama");
-        final String email = extras.getString("email");
-        final String nohp = extras.getString("nohp");
-        final String alamat = extras.getString("alamat");
-        final String noktp = extras.getString("noktp");
+        final String kode = extras.getString("kode");
+        final String merk = extras.getString("merk");
+        final String jenis = extras.getString("jenis");
+        final String warna = extras.getString("warna");
+        final String hargaSewa = extras.getString("hargasewa");
 
-        tvId.setText("Id :" + id);
-        etNama.setText(nama);
-        etEmail.setText(email);
-        etNohp.setText(nohp);
-        etAlamat.setText(alamat);
-        etNoktp.setText(noktp);
+        tvIdSepeda.setText("Id :" + id);
+        etKode.setText(kode);
+        etMerk.setText(merk);
+        etJenis.setText(jenis);
+        etWarna.setText(warna);
+        etHarga.setText(hargaSewa);
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        btnEditSepeda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AndroidNetworking.post( BaseUrl.url+ "UpdateData.php")
+                AndroidNetworking.post( BaseUrl.url+ "phpsepedabaru/updatesepeda.php")
                         .addBodyParameter("id",id)
-                        .addBodyParameter("nama", etNama.getText().toString())
-                        .addBodyParameter("email", etEmail.getText().toString())
-                        .addBodyParameter("nohp", etNohp.getText().toString())
-                        .addBodyParameter("alamat", etAlamat.getText().toString())
-                        .addBodyParameter("noktp", etNoktp.getText().toString())
+                        .addBodyParameter("kode", etKode.getText().toString())
+                        .addBodyParameter("merk", etMerk.getText().toString())
+                        .addBodyParameter("jenis", etJenis.getText().toString())
+                        .addBodyParameter("warna", etWarna.getText().toString())
+                        .addBodyParameter("hargasewa", etHarga.getText().toString())
                         .setPriority(Priority.LOW)
                         .build()
                         .getAsJSONObject(new JSONObjectRequestListener() {
@@ -78,13 +77,13 @@ public class EditData extends AppCompatActivity {
                                     JSONObject hasil = response.getJSONObject("hasil");
                                     boolean sukses = hasil.getBoolean("respon");
                                     if (sukses) {
-                                        Intent returnIntent = new Intent(EditData.this, DataCustomer.class);
+                                        Intent returnIntent = new Intent(InfoSepeda.this, DataSepeda.class);
                                         returnIntent.putExtra("refresh", "refresh");
                                         startActivityForResult(returnIntent, 23);
                                         finish();
-                                        Toast.makeText(EditData.this, "Update Sukses", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(InfoSepeda.this, "Update Sukses", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(EditData.this, "Update gagal", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(InfoSepeda.this, "Update gagal", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -94,7 +93,7 @@ public class EditData extends AppCompatActivity {
 
                             @Override
                             public void onError(ANError anError) {
-                                Toast.makeText(EditData.this, "Edit gagal", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InfoSepeda.this, "Edit gagal", Toast.LENGTH_SHORT).show();
                             }
                         });
             }

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 public class Register extends AppCompatActivity {
 
-    Button btnNext, btnRegister;
+    Button btnback, btnRegister;
     EditText tfNama, tfEmail, tfPassword,  tfNoktp, tfAlamat, tfNohp;
     SharedPreferences sp;
 
@@ -40,11 +41,21 @@ public class Register extends AppCompatActivity {
         tfNoktp = findViewById(R.id.txtNewKTP);
         tfAlamat = findViewById(R.id.txtNewAddress);
         tfNohp = findViewById(R.id.txtNewNoHP);
+        btnback = findViewById(R.id.BtnBack);
+
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Register.this, MainActivity.class));
+                finish();
+            }
+        });
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    AndroidNetworking.post("http://192.168.42.40/Sepeda/registrasi.php")
+                    AndroidNetworking.post(BaseUrl.url +"registrasi.php")
                             .addBodyParameter("email", tfEmail.getText().toString())
                             .addBodyParameter("nama", tfNama.getText().toString())
                             .addBodyParameter("password", tfPassword.getText().toString())

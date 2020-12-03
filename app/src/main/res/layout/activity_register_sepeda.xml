@@ -5,13 +5,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
+    tools:context=".registerSepeda">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Register User"
+        app:title="Register Sepeda"
         app:titleTextColor="#FFFFFF"
         android:background="#4CAF50"
         />
@@ -20,104 +20,91 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrasi Nama"
+        android:text="Registrasi Kode Sepeda"
         android:textSize="8pt"
         ></TextView>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNewName"
+        android:id="@+id/txtNewCodeSepeda"
         android:textSize="8pt"
-        android:hint="Enter New Name"
+        android:hint="Enter New Code"
+        android:inputType="number"
         ></EditText>
 
     //Email
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrasi Email Anda"
+        android:text="Registrasi Merk Sepeda"
         android:textSize="8pt"
         ></TextView>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNewEmail"
+        android:id="@+id/txtNewMerkSepeda"
         android:textSize="8pt"
-        android:hint="Enter New Email"
+        android:hint="Enter New Merk"
         ></EditText>
 
     //Password
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrasi Password Anda"
+        android:text="Registrasi Jenis Sepeda"
         android:textSize="8pt"
         ></TextView>
     <EditText
-        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNewPassword"
+        android:id="@+id/txtNewJenisSepeda"
         android:textSize="8pt"
-        android:hint="Enter New Password"
+        android:hint="Enter Jenis"
         ></EditText>
 
     //No HP
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrasi No. Telp. Anda"
+        android:text="Registrasi Warna Sepeda"
         android:textSize="8pt"
         ></TextView>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNewNoHP"
+        android:id="@+id/txtNewWarnaSepeda"
         android:textSize="8pt"
-        android:hint="Enter New Phone Number"
+        android:hint="Enter Colour"
         ></EditText>
 
     //No KTP
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrasi No. KTP Anda"
+        android:text="Registrasi Harga Sewa"
         android:textSize="8pt"
         ></TextView>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtNewKTP"
+        android:id="@+id/txtNewHargaSepeda"
         android:textSize="8pt"
-        android:hint="Enter New KTP"
-        ></EditText>
-
-    //No Address
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrasi Alamat Anda"
-        android:textSize="8pt"
-        ></TextView>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtNewAddress"
-        android:textSize="8pt"
-        android:hint="Enter New Address"
+        android:hint="Enter Price"
+        android:inputType="number"
         ></EditText>
 
     <Button
-        android:id="@+id/BtnRegister"
+        android:id="@+id/BtnRegisterNewSepeda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         ></Button>
     <Button
-        android:id="@+id/BtnBack"
+        android:id="@+id/BtnBackToDashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back To Login"
+        android:text="Back To Dashboard"
         ></Button>
 
 

@@ -1,17 +1,17 @@
 package com.example.myapplication;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -24,35 +24,36 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class DataCustomer extends AppCompatActivity {
+public class DataSepeda extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private adapterView adapter;
+    private adapterViewSepeda adapter;
 
-    ArrayList<model> datalist;
+    ArrayList<modelSepeda> datalist;
 
     CardView cvInbox;
 
-    TextView tvNama, tvEmail;
+    TextView tvJenis, tvMerk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_customer);
+        setContentView(R.layout.activity_data_sepeda);
 
-        tvNama = findViewById(R.id.txtNama);
-        tvEmail = findViewById(R.id.txtEmail);
+        tvJenis = findViewById(R.id.txtJenisSepeda);
+        tvMerk = findViewById(R.id.txtMerkSepeda);
+
         cvInbox = findViewById(R.id.cvInbox);
-        recyclerView = findViewById(R.id.listCustomer);
+        recyclerView = findViewById(R.id.listSepeda);
 
-        getDataCostumer();
+        getDataSepeda();
     }
 
-    private void getDataCostumer() {
+    private void getDataSepeda() {
         datalist = new ArrayList<>();
         Log.d("geo", "onCreate: ");
 
-        AndroidNetworking.post(BaseUrl.url + "ViewData.php")
+        AndroidNetworking.post(BaseUrl.url + "phpsepedabaru/getdatasepeda.php")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -65,20 +66,18 @@ public class DataCustomer extends AppCompatActivity {
                             for (int i = 0; i < data.length(); i++) {
 
                                 JSONObject object = data.getJSONObject(i);
-                                model model = new model();
-                                model.setAlamat(object.getString("alamat"));
-                                model.setNama(object.getString("nama"));
-                                model.setEmail(object.getString("email"));
+                                modelSepeda model = new modelSepeda();
                                 model.setId(object.getString("id"));
-                                model.setNohp(object.getString("nohp"));
-                                model.setNoktp(object.getString("noktp"));
-                                model.setRoleuser(object.getString("roleuser"));
+                                model.setKode(object.getString("kode"));
+                                model.setMerk(object.getString("merk"));
+                                model.setJenis(object.getString("jenis"));
+                                model.setWarna(object.getString("warna"));
+                                model.setHargaSewa(object.getString("hargasewa"));
 
                                 datalist.add(model);
-
                             }
-                            adapter = new adapterView(datalist);
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DataCustomer.this);
+                            adapter = new adapterViewSepeda(datalist);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DataSepeda.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(adapter);
 
@@ -93,7 +92,7 @@ public class DataCustomer extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-                        Toast.makeText(DataCustomer.this, anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DataSepeda.this, anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
                         Log.d("geo", "onResponse: " + anError.toString());
                         Log.d("geo", "onResponse: " + anError.getErrorBody());
                         Log.d("geo", "onResponse: " + anError.getErrorCode());
@@ -107,7 +106,7 @@ public class DataCustomer extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 23 && data.getStringExtra("refresh") != null) {
             //refresh list
-            getDataCostumer();
+            getDataSepeda();
             Toast.makeText(this, "data's..", Toast.LENGTH_SHORT).show();
 
         }
@@ -115,7 +114,7 @@ public class DataCustomer extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(DataCustomer.this, Admin.class);
+        Intent intent = new Intent(DataSepeda.this, Admin.class);
         startActivity(intent);
         finish();
         finishAffinity();

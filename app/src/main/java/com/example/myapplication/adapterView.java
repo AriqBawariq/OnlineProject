@@ -54,7 +54,7 @@ public class adapterView extends RecyclerView.Adapter<adapterView.UserViewHolder
         return dataList.size();
     }
 
-    class UserViewHolder extends RecyclerView.ViewHolder{
+    static class UserViewHolder extends RecyclerView.ViewHolder{
         private TextView txtNama, txtEmail;
         CardView cvInbox;
 

@@ -15,14 +15,17 @@ import android.widget.Button;
 public class Admin extends AppCompatActivity {
 
     SharedPreferences sp;
-    Button btnLogout, btnDataCustomer;
+    Button btnLogout, btnDataCustomer, btnRegisterData, btnListDataSepeda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_admin);
 
         btnLogout = (Button) findViewById(R.id.BtnLogOut);
+        btnDataCustomer = (Button) findViewById(R.id.BtnDataUser);
+        btnRegisterData = (Button) findViewById(R.id.BtnRegisterSepeda);
+        btnListDataSepeda = (Button)findViewById(R.id.BtnDataSepeda);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,13 +34,27 @@ public class Admin extends AppCompatActivity {
             }
         });
 
-        btnDataCustomer = (Button) findViewById(R.id.BtnSepeda);
-
         btnDataCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Admin.this, DataCustomer.class);
-                startActivity(intent);
+                startActivity(new Intent(Admin.this, DataCustomer.class));
+                finish();
+            }
+        });
+
+        btnRegisterData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Admin.this, registerSepeda.class));
+                finish();
+            }
+        });
+
+        btnListDataSepeda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Admin.this, DataSepeda.class));
+                finish();
             }
         });
     }

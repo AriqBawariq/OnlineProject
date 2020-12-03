@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DataCustomer"></activity>
+        <activity android:name=".registerSepeda"></activity>
+        <activity android:name=".adapterViewSepeda" />
+        <activity android:name=".InfoSepeda" />
+        <activity android:name=".DataSepeda" />
+        <activity android:name=".DataCustomer" />
         <activity android:name=".EditData" />
         <activity android:name=".activity_splash_screen">
             <intent-filter>
